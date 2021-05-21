@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :address, only: [:index,:create,:edit,:destroy,:update]
+  resources :addresses, only: [:index,:create,:edit,:destroy,:update]
   
   resources :orders, only: [:new,:create,:index,:show]
   get 'orders/confirm' => 'orders#confirm'
