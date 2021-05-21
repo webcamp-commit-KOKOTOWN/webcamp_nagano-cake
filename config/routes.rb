@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'orders/complete' => 'orders#complete'
   
   
-  namecpace :admin do
+  namespace :admin do
     get 'homes' => 'admin/homes#top'
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
     resources :genres, only: [:index,:create,:edit,:update]
