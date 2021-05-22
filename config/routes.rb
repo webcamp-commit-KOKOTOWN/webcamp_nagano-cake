@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :customers
   resources :customers, only: [:show,:edit,:update]
+  get '/customer/:id/quit' => 'customers#quit', as: 'quit'
   patch 'customers/out' => 'customers#out', as: :customers_out
-  get 'customers/quit' => 'customers#quit'
-
+  
   resources :items, only: [:index,:show]
   
   resources :cart_items, only: [:create,:index,:update,:destroy] do
