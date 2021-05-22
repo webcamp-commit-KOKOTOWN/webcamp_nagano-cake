@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def new
-    @user = User.find(current_user.id)
+    @customer = Customer.find(1)
     @order = Order.new
   end
 
