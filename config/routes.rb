@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'cunstomers/show'
-  get 'cunstomers/quit'
-  get 'cunstomers/edit'
   devise_for :admins
   devise_for :customers
   resources :customers, only: [:show,:edit,:update]
