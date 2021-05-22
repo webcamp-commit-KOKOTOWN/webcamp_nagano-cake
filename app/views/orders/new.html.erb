@@ -3,8 +3,10 @@
 <%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
   <div>
     <h2>支払い方法</h2>
-    <%= f.radio_button :payment_option, :true, checked: true %>クレジットカード
-    <%= f.radio_button :payment_option, :false %>銀行振込
+    <%= f.radio_button :payment_option, :true, checked: true %>
+    <%= f.label :payment_option, "クレジットカード", {value: :true} %><br>
+    <%= f.radio_button :payment_option, :false %>
+    <%= f.label :payment_option, "銀行振込", {value: :false} %>
   </div>
   <div>
     <h2>お届け先</h2>
@@ -24,7 +26,7 @@
       <%= f.label :address, "住所" %>
       <%= f.text_field :address %><br>
       <%= f.label :name, "宛名" %>
-      <%= f.text_field :name %><br>
+      <%= f.text_field :name %>
     </div>
   </div>
   <%= f.submit "確認画面に進む" %>
