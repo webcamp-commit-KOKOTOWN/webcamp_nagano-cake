@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :customers
   resources :customers, only: [:show,:edit,:update]
   get '/customer/:id/quit' => 'customers#quit', as: 'quit'
-  patch 'customers/out' => 'customers#out', as: :customers_out
+  patch '/customers/:id/out' => 'customers#out', as: :'customers_out'
   
   resources :items, only: [:index,:show]
   
@@ -28,8 +28,8 @@ Rails.application.routes.draw do
       resources :oreder_items, only: [:update]
     end
   end
-  
-  get 'homes/top'
+
+  root to: 'homes#top'  
   get 'homes/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

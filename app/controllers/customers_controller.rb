@@ -15,8 +15,9 @@ class CustomersController < ApplicationController
   #Viewなし
   def out
     @customer = Customer.find(params[:id])
-    @customer.update(is_deleted: "true")
+    @customer.update(is_deleted: true)
     # binding.pry
+    flash[:notice] = "退会しました。"
     reset_session
     redirect_to root_path
   end
