@@ -6,7 +6,6 @@ class CustomersController < ApplicationController
   end
 
   def quit
-    @customer = Customer.find(params[:id])
   end
 
   def edit

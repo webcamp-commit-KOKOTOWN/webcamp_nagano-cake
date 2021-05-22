@@ -18,8 +18,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:new,:create,:index,:show]
   get 'orders/confirm' => 'orders#confirm'
   get 'orders/complete' => 'orders#complete'
-  
-  
+
   namespace :admin do
     get 'homes' => 'admin/homes#top'
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
