@@ -16,27 +16,27 @@
   <tbody>
     <tr>
       <td class="table-secondary">氏名 </td>
-      <td><%%= @customer.last_name %> <%%= @customer.first_name %></td>
+      <td><%= @customer.last_name %> <%= @customer.first_name %></td>
     </tr>
     <tr>
       <td class="table-secondary">カナ </td>
-      <td><%%= @customer.kana_last_name %> <%%= @customer.kana_first_name %></td>
+      <td><%= @customer.last_name_kana %> <%= @customer.first_name_kana %></td>
     </tr>
     <tr>
       <td class="table-secondary">郵便番号 </td>
-      <td><%%= @customer.postal_code %></td>
+      <td><%= @customer.postal_code %></td>
     </tr>
     <tr>
       <td class="table-secondary">住所 </td>
-      <td><%%= @customer.address %> </td>
+      <td><%= @customer.address %> </td>
     </tr>
     <tr>
       <td class="table-secondary">電話番号 </td>
-      <td><%%= @customer.phone_number %> </td>
+      <td><%= @customer.phone_number %> </td>
     </tr>
     <tr>
       <td class="table-secondary">メールアドレス </td>
-      <td><%%= @customer.email %> </td>
+      <td><%= @customer.email %> </td>
     </tr>
   </tbody>
 </table>
@@ -45,7 +45,7 @@
    <div class="col-2">
    <strong>配送先</strong>
    </div>
-   <%%= link_to "一覧を見る", shipping_addresses_path, class: "btn btn-primary" %>
+   <%= link_to "一覧を見る", addresses_path, class: "btn btn-primary" %>
 
 </div>
 
@@ -53,7 +53,7 @@
    <div class="col-2">
     <strong>注文履歴</strong>
     </div>
-   <%%= link_to "一覧を見る", orders_path, class: "btn btn-primary" %>
+   <%= link_to "一覧を見る", orders_path, class: "btn btn-primary" %>
 
 </div>
 </div>
