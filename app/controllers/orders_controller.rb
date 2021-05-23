@@ -7,7 +7,9 @@ class OrdersController < ApplicationController
 
   def confirm
     @customer = Customer.find(current_customer.id)
+    @carts = @customer.cart_items.all
     @order = Order.new(order_params)
+    @order.customer_id = @customer.id
     if params[:address_select] == "current"
       @order.postal_code = @customer.postal_code
       @order.address = @customer.address

@@ -1,4 +1,43 @@
 <h1>注文情報確認画面</h1>
-<h2>お届け先</h2>
-<%= "〒#{@order.postal_code} #{@order.address}" %><br>
-<%= @order.name %>
+<div>
+  <h2>注文情報確認</h2>
+  <table>
+    <tr>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計</th>
+    </tr>
+    <% @carts.each do |cart| %>
+      <tr>
+        <td><%= cart.item.name %></td>
+        <td><%= cart.item.tax_calc %></td>
+        <td><%= cart.quantity %></td>
+        <td><%= cart.item.tax_calc * cart.quantity %></td>
+      </tr>
+    <% end %>
+  </table>
+  <table>
+    <tr>
+      <th>送料</th>
+      <td><%= @order.postage %></td>
+    </tr>
+    <tr>
+      <th>商品合計</th>
+      <td><%= @order.total_price_calc %></td>
+    </tr>
+    <tr>
+      <th>請求金額</th>
+      <td><%= @order.amount_calc %></td>
+    </tr>
+  </table>
+</div>
+<div>
+  <h2>支払い方法</h2>
+  <%= @order.payment_option_name %>
+</div>
+<div>
+  <h2>お届け先</h2>
+  <%= "〒#{@order.postal_code} #{@order.address}" %><br>
+  <%= @order.name %>
+</div>
