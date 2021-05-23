@@ -3,21 +3,21 @@ Rails.application.routes.draw do
   devise_for :customers
   resources :customers, only: [:show,:edit,:update]
   get '/customer/:id/quit' => 'customers#quit', as: 'quit'
-  patch '/customers/:id/out' => 'customers#out', as: :'customers_out'
-  
+  patch '/customers/:id/out' => 'customers#out', as: 'customers_out'
+
   resources :items, only: [:index,:show]
-  
+
   resources :cart_items, only: [:create,:index,:update,:destroy] do
     collection do
       delete 'destroy_all'
     end
   end
-  
+
   resources :addresses, only: [:index,:create,:edit,:destroy,:update]
-  
-  resources :orders, only: [:new,:create,:index,:show]
+
   get 'orders/confirm' => 'orders#confirm'
   get 'orders/complete' => 'orders#complete'
+  resources :orders, only: [:new,:create,:index,:show]
 
   namespace :admin do
     get 'homes' => 'admin/homes#top'
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'homes#top'  
+  get 'homes/top'
   get 'homes/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
