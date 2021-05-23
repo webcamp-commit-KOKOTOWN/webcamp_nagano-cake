@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
 
   attribute :postage, :integer, default: 800
+  attribute :order_status, :integer, default: 0
 
 
   def total_price_calc
