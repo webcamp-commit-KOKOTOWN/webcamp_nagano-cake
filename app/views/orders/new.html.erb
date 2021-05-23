@@ -11,16 +11,19 @@
   <div>
     <h2>お届け先</h2>
     <div>
-      <%= f.radio_button :address_select, :one, checked: true %><%= f.label :address_select, "ご自身の住所", {value: :one} %>
-      <p>〒<%= @customer.address %></p>
-      <p><%= "#{@customer.last_name}#{@customer.first_name}" %></p>
+      <%= f.radio_button :address_select, :current, checked: true %>
+      <%= f.label :address_select, "ご自身の住所", {value: :current} %>
+      〒<%= @customer.address %>
+      <%= "#{@customer.last_name}#{@customer.first_name}" %>
     </div>
     <div>
-      <%= f.radio_button :address_select, :two %><%= f.label :address_select, "登録住所から選択", {value: :two} %>
-      <%= f.collection_select :address, @customer.addresses.all, :address, :address %>
+      <%= f.radio_button :address_select, :registered %>
+      <%= f.label :address_select, "登録住所から選択", {value: :registered} %>
+      <%= f.collection_select :address_registered, @customer.addresses.all, :id, :address %>
     </div>
     <div>
-      <%= f.radio_button :address_select, :tree %><%= f.label :address_select, "新しいお届け先", {value: :three} %>
+      <%= f.radio_button :address_select, :other %>
+      <%= f.label :address_select, "新しいお届け先", {value: :other} %>
       <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
       <%= f.text_field :postal_code %><br>
       <%= f.label :address, "住所" %>

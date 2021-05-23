@@ -1,1 +1,4 @@
 <h1>注文情報確認画面</h1>
+<h2>お届け先</h2>
+<%= "〒#{@order.postal_code} #{@order.address}" %><br>
+<%= @order.name %>
