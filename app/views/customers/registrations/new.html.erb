@@ -1,0 +1,56 @@
+<div class="container">
+ <h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "customers/shared/error_messages", resource: resource %>
+  <table class="table table-borderless">
+  　<tr>
+      <th><%= f.label :氏名 %></th>
+      <td><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>&emsp;
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :フリガナ %></th>
+      <td><%= f.text_field :last_name_kana, autofocus: true, autocomplete: "kana_last_name" %>&emsp;
+          <%= f.text_field :first_name_kana, autofocus: true, autocomplete: "kana_first_name" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :メールアドレス %></th>
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :郵便番号 %></th>
+      <td><%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :住所 %></th>
+      <td><%= f.text_field :address, autofocus: true, autocomplete: "address" ,:size => "70*70" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :電話番号 %></th>
+      <td><%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number" %></td>
+    </tr>
+    
+  　<tr>
+     <th><%= f.label :"パスワード(6文字以上)" %></th>
+    <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+    </tr>
+
+  <tr>
+    <th><%= f.label :"パスワード(確認用)" %></th>
+    <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+  </tr>
+
+  <tr>
+    <td><%= f.submit "Sign up" %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<tr>
+  <td>既に登録済みの方</td>
+</tr>
+<tr>
+  <td><%= link_to "こちら", customer_session_path %>からログインしてください。</td>
+</tr>
+
