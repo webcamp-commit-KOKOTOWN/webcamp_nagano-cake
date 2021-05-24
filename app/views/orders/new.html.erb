@@ -1,39 +1,35 @@
-<% if @cart_items.empty? %>
-  カートに商品がありません
-<% else %>
 <h1>注文情報入力画面</h1>
-  <%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
+<%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
+  <div>
+    <h2>支払い方法</h2>
+    <%= f.radio_button :payment_option, :true, checked: true %>
+    <%= f.label :payment_option, "クレジットカード", {value: :true} %><br>
+    <%= f.radio_button :payment_option, :false %>
+    <%= f.label :payment_option, "銀行振込", {value: :false} %>
+  </div>
+  <div>
+    <h2>お届け先</h2>
     <div>
-      <h2>支払い方法</h2>
-      <%= f.radio_button :payment_option, :true, checked: true %>
-      <%= f.label :payment_option, "クレジットカード", {value: :true} %><br>
-      <%= f.radio_button :payment_option, :false %>
-      <%= f.label :payment_option, "銀行振込", {value: :false} %>
+      <%= f.radio_button :address_select, :current, checked: true %>
+      <%= f.label :address_select, "ご自身の住所", {value: :current} %>
+      〒<%= @customer.address %>
+      <%= "#{@customer.last_name}#{@customer.first_name}" %>
     </div>
     <div>
-      <h2>お届け先</h2>
-      <div>
-        <%= f.radio_button :address_select, :current, checked: true %>
-        <%= f.label :address_select, "ご自身の住所", {value: :current} %>
-        〒<%= @customer.address %>
-        <%= "#{@customer.last_name}#{@customer.first_name}" %>
-      </div>
-      <div>
-        <%= f.radio_button :address_select, :registered %>
-        <%= f.label :address_select, "登録住所から選択", {value: :registered} %>
-        <%= f.collection_select :address_registered, @customer.addresses.all, :id, :address %>
-      </div>
-      <div>
-        <%= f.radio_button :address_select, :other %>
-        <%= f.label :address_select, "新しいお届け先", {value: :other} %>
-        <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
-        <%= f.text_field :postal_code %><br>
-        <%= f.label :address, "住所" %>
-        <%= f.text_field :address %><br>
-        <%= f.label :name, "宛名" %>
-        <%= f.text_field :name %>
-      </div>
+      <%= f.radio_button :address_select, :registered %>
+      <%= f.label :address_select, "登録住所から選択", {value: :registered} %>
+      <%= f.collection_select :address_registered, @customer.addresses.all, :id, :address %>
     </div>
-    <%= f.submit "確認画面に進む" %>
-  <% end %>
+    <div>
+      <%= f.radio_button :address_select, :other %>
+      <%= f.label :address_select, "新しいお届け先", {value: :other} %>
+      <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
+      <%= f.text_field :postal_code %><br>
+      <%= f.label :address, "住所" %>
+      <%= f.text_field :address %><br>
+      <%= f.label :name, "宛名" %>
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <%= f.submit "確認画面に進む" %>
 <% end %>
