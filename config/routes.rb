@@ -32,12 +32,12 @@ Rails.application.routes.draw do
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
     resources :genres, only: [:index,:create,:edit,:update]
     resources :customers, only: [:index,:show,:edit,:update]
-    resources :orders, only: [:show,:update] do
-      resources :oreder_items, only: [:update]
+    resources :orders, only: [:index,:show,:update] do
+      resources :order_items, only: [:update]
     end
   end
 
-  root to: 'homes#top'  
+  root to: 'homes#top'
   get 'homes/top'
   get 'homes/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
