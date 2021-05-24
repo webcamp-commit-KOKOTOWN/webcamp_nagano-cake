@@ -43,6 +43,8 @@ class OrdersController < ApplicationController
   end
 
   def index
+    @customer = Customer.find(current_customer.id)
+    @orders = @customer.orders.all
   end
 
   def show
