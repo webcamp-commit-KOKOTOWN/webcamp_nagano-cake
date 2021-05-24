@@ -1,0 +1,32 @@
+<div class="container">
+<h4>ログイン</h4>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<table class="table table-borderless">
+  
+　<tr>
+    <th><%= f.label :メールアドレス %></th>
+    <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+  </tr>
+  
+  <tr>
+    <th><%= f.label :パスワード %></th>
+    <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+  </tr>
+  <tr>
+    <th></th>
+    <td><%= f.submit "ログイン", class:"btn btn-primary btn-lg" %></td>
+  </tr>
+  
+</table>
+<% end %>
+<table class="table-borderless">
+　<tr>
+  　<td>会員登録がお済みでない方</td>
+　</tr>
+　<tr>
+  　<td><%= link_to "こちら", new_customer_registration_path %>から新規登録を行ってください。</td>
+　</tr>
+
+</table>
+</div>
