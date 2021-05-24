@@ -1,0 +1,12 @@
+<% if @genre.errors.any?%>
+ <%@genre.errors.full_messages.each do|message|%>何も入力されていません
+ <%end%>
+<%end%>
+<h1>ジャンル編集</h1>
+<tr>
+ <td>ジャンル名</td>
+  <%= form_with model: @genre, url: admin_genre_path, local:true do |f|%>
+ <td><%= f.text_area :name %></td>
+ <td><%= f.submit "変更を保存" %></td>
+  <% end %>
+</tr>
