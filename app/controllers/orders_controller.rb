@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def new
     @customer = Customer.find(current_customer.id)
-    @order = Order.new
+    @cart_items = @customer.cart_items.all
   end
 
   def confirm
