@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :customers
   resources :customers, only: [:show,:edit,:update]
+  get '/customer/:id/quit' => 'customers#quit', as: 'quit'
+  patch '/customers/:id/out' => 'customers#out', as: 'customers_out'
 
   resources :items, only: [:index,:show]
 
@@ -17,7 +19,6 @@ Rails.application.routes.draw do
   get 'orders/complete' => 'orders#complete'
   resources :orders, only: [:new,:create,:index,:show]
 
-
   namespace :admin do
     get 'homes' => 'admin/homes#top'
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
+  root to: 'homes#top'  
   get 'homes/top'
   get 'homes/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
