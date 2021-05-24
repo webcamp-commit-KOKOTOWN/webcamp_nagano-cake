@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
- 
+ before_action :authenticate_customer!
   def index
       @addresses = Address.all
       @address = Address.new
