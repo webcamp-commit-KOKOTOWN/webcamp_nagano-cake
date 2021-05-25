@@ -13,7 +13,7 @@
           <%= @item.description %>
         </div>
         <div class="field item-price">
-          <h3>¥ <%= tax_ca(@item.price).to_s(:delimited) %>
+          <h3>¥ <%= tax_(@item.price).to_s(:delimited) %>
               <span class="tax">(税込)</span>
           </h3>
         </div>
