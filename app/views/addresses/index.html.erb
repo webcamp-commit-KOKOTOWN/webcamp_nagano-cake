@@ -8,11 +8,11 @@
     <tbody>
      <tr>
       <th>郵便番号(ハイフンなし)</th>
-      <td><%= f.text_field :address, class:"form-control w-50" %></td>
+      <td><%= f.text_field :postal_code, class:"form-control w-50" %></td>
      </tr>
      <tr>
       <th>住所</th>
-      <td><%= f.text_field :postal_code, class:"form-control w-100" %></td>
+      <td><%= f.text_field :address, class:"form-control w-100" %></td>
      </tr>
      <tr>
       <th>宛名</th>
@@ -31,8 +31,8 @@
        </tr>
        <% @addresses.each do |address|%>
        <tr>
-        <td><%= address.address %></td>
         <td><%= address.postal_code %></td>
+        <td><%= address.address %></td>
         <td><%= address.name %></td>
         <td><%= link_to "編集する", edit_address_path(address.id), class:"btn btn-success" %>
         <%= link_to "削除する", address_path(address.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></td>
