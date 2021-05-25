@@ -6,9 +6,11 @@ class AddressesController < ApplicationController
   end
   
   def create
-      address = Address.new(address_params)
-      address.save
+      address = current_customer.addresses.new(address_params)
+      if address.save
+      flash[:notice] = "住所を追加しました"
       redirect_to addresses_path
+      end
   end
     
   def edit
@@ -17,8 +19,10 @@ class AddressesController < ApplicationController
   
   def update
       @address = Address.find(params[:id])
-      @address.update
+      if @address.update(address_params)
+      flash[:notice] = "住所を変更しました"
       redirect_to addresses_path
+      end
   end
   
   def destroy
