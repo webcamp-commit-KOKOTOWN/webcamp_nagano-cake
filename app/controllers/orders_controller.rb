@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
+  before_action :exist_cart_items?, only: [:new, :confirm, :create, :complete]
+
 
   def new
     @customer = Customer.find(current_customer.id)
-    @order = Order.new
+    @cart_items = @customer.cart_items.all
   end
 
   def confirm
@@ -43,9 +45,13 @@ class OrdersController < ApplicationController
   end
 
   def index
+    @customer = Customer.find(current_customer.id)
+    @orders = @customer.orders.all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items.all
   end
 
 
@@ -53,6 +59,14 @@ class OrdersController < ApplicationController
 
   def order_params
     params.permit(:name, :postal_code, :address, :payment_option, :total_payment, :customer_id)
+  end
+
+  def exist_cart_items?
+    customer = Customer.find(current_customer.id)
+    cart_items = customer.cart_items.all
+    if cart_items.empty?
+      redirect_to customer_path(current_customer.id)
+    end
   end
 
 end
