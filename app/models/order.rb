@@ -25,4 +25,9 @@ class Order < ApplicationRecord
     name = {true => "クレジットカード", false => "銀行振込"}
     return name[self.payment_option]
   end
+
+  def status_name
+    name = {0 => "入金待ち", 1 => "入金確認", 2 => "制作中", 3 => "発送準備中", 4 => "発送済み"}
+    return name[self.order_status]
+  end
 end
