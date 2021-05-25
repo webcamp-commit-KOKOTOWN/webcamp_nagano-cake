@@ -22,7 +22,7 @@
   <tr>
     <th>注文ステータス</th>
     <td>
-      <%= form_with model:@order, local:true do |f| %>
+      <%= form_with url: admin_order_path, method: :patch, local:true do |f| %>
         <%= f.select :order_status, {"入金待ち": 0, "制作待ち": 1, "制作中": 2, "制作完了": 3}, {selected: @order.order_status} %>
         <%= f.submit "更新" %>
       <% end %>
