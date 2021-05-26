@@ -1,9 +1,13 @@
 class Admin::OrderItemsController < ApplicationController
+  before_action :authenticate_admin!
+
   def update
     @order_item = OrderItem.find(params[:id])
     @order_item.update(params_order_item)
+    flash[:notice] = "制作ステータスが更新されました"
     if @order_item.production_status == 2
       @order_item.order.update(order_status: 2)
+      flash[:notice] = "制作を開始したため、注文ステータスを「制作中」に更新しました"
     elsif @order_item.production_status == 3
       order_items = @order_item.order.order_items
       finished = true
@@ -15,6 +19,7 @@ class Admin::OrderItemsController < ApplicationController
       if finished == true
         order = @order_item.order
         order.update(order_status: 3)
+        flash[:notice] = "全ての商品の制作が完了したため、注文ステータスを「発送準備」に更新しました"
       end
     end
     redirect_to admin_order_path(params[:order_id])
