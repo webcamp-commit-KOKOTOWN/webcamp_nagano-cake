@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_customer!
   before_action :exist_cart_items?, only: [:new, :confirm, :create]
 
 
