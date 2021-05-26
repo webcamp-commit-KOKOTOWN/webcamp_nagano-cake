@@ -1,4 +1,12 @@
 <h1>注文情報入力画面</h1>
+<% if @order.errors.any? %>
+  <%= "#{@order.errors.count}件のエラーが発生しました" %>
+  <ul>
+    <%= @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
   <div>
     <h2>支払い方法</h2>
@@ -24,11 +32,11 @@
       <%= f.radio_button :address_select, :other %>
       <%= f.label :address_select, "新しいお届け先", {value: :other} %>
       <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
-      <%= f.text_field :postal_code %><br>
+      <%= f.text_field :postal_code, {value: @order.postal_code} %><br>
       <%= f.label :address, "住所" %>
-      <%= f.text_field :address %><br>
+      <%= f.text_field :address, {value: @order.address} %><br>
       <%= f.label :name, "宛名" %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, {value: @order.name} %>
     </div>
   </div>
   <%= f.submit "確認画面に進む" %>
