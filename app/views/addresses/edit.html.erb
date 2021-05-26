@@ -1,0 +1,22 @@
+<div class="container">
+
+  <div class = "col-2 my-5 title" >
+  <td>配送先登録/一覧</td>
+  </div>
+  <%= form_with model: @address, url: address_path, local:true do |f|%>
+   <table class="table table-borderless">
+    <tbody>
+     <tr>
+      <th>郵便番号(ハイフンなし)</th>
+      <td><%= f.text_field :address, class:"form-control w-50" %></td>
+     </tr>
+     <tr>
+      <th>住所</th>
+      <td><%= f.text_field :postal_code, class:"form-control w-100" %></td>
+     </tr>
+     <tr>
+      <th>宛名</th>
+      <td><%= f.text_field :name, class:"form-control w-50" %></td><td><%= f.submit "変更内容を保存", class:"btn btn-success" %></td>
+     </tr>
+   </table>
+  <% end %>
