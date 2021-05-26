@@ -1,0 +1,46 @@
+<div class="container">
+  
+  <div class = "col-2 my-5 title" >
+    <h4>会員情報編集</h4>
+  </div>
+
+<%= form_with model: @customer, url: customer_path, local:true do |f| %>
+
+  <table class="table table-borderless">
+    <tr>
+      <th><%= f.label :氏名 %></th>
+      <td><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>&emsp;
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :フリガナ %></th>
+      <td><%= f.text_field :last_name_kana, autofocus: true, autocomplete: "kana_last_name" %>&emsp;
+          <%= f.text_field :first_name_kana, autofocus: true, autocomplete: "kana_first_name" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :郵便番号 %></th>
+      <td><%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :住所 %></th>
+      <td><%= f.text_field :address, autofocus: true, autocomplete: "address" ,:size => "70*70" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :電話番号 %></th>
+      <td><%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :メールアドレス %></th>
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div class="actions">
+          <%= f.submit "編集内容を保存" ,class:"btn btn-success" %>&emsp;&emsp;&emsp;<%= link_to "退会する" ,quit_path ,class:"btn btn-danger" %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>
+</div>

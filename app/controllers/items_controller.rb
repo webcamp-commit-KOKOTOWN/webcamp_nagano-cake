@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
         @items = Item.where(sale_status: true).page(params[:page]).per(8)
         @genres = Genre.all
     end
-    
+
     def show
         @items = Item.all
         @item = Item.find(params[:id])
