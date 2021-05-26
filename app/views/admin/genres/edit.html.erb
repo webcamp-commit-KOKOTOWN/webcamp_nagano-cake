@@ -2,11 +2,15 @@
  <%@genre.errors.full_messages.each do|message|%>何も入力されていません
  <%end%>
 <%end%>
+<div class="container">
 <h1>ジャンル編集</h1>
+<table class="table table-borderless">
 <tr>
- <td>ジャンル名</td>
+ <th>ジャンル名</th>
   <%= form_with model: @genre, url: admin_genre_path, local:true do |f|%>
- <td><%= f.text_area :name %></td>
- <td><%= f.submit "変更を保存" %></td>
+ <td><%= f.text_field :name, class:"form-control w-50" %></td>
+ <td><%= f.submit "変更を保存", class:"btn btn-success" %></td>
   <% end %>
 </tr>
+</table>
+</div>
