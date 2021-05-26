@@ -32,7 +32,11 @@
                 <%= item.price.to_s(:delimited) %>
             </td>
             <td class="text-left col-xs-3">
+              <% if item.genre != nil %>
                 <%= item.genre.name %>
+              <% else %>
+              <p>なし</p>
+              <% end %>
             </td>
             <td class="col-xs-2">
                 <% if item.sale_status == true %>
