@@ -1,34 +1,40 @@
-<h1>注文履歴一覧</h1>
-<table>
-  <thead>
-    <tr>
-      <th>注文日</th>
-      <th>配送先</th>
-      <th>注文商品</th>
-      <th>支払い金額</th>
-      <th>ステータス</th>
-      <th>注文詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
-        <td>
-          <%= "〒#{order.postal_code}" %><br>
-          <%= order.address %><br>
-          <%= order.name %>
-        </td>
-        <td>
-          <% items = order.order_items.all %>
-          <% items.each do |item| %>
-            <%= item.item.name %><br>
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1>注文履歴一覧</h1>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center">注文日</th>
+            <th class="text-center">配送先</th>
+            <th class="text-center">注文商品</th>
+            <th class="text-center">支払い金額</th>
+            <th class="text-center">ステータス</th>
+            <th class="text-center">注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="text-center align-middle"><%= order.created_at.strftime('%Y/%m/%d') %></td>
+              <td class="align-middle">
+                <%= "〒#{order.postal_code}" %><br>
+                <%= order.address %><br>
+                <%= order.name %>
+              </td>
+              <td class="text-center">
+                <% items = order.order_items.all %>
+                <% items.each do |item| %>
+                  <%= item.item.name %><br>
+                <% end %>
+              </td>
+              <td class="text-right align-middle"><%= order.total_payment %></td>
+              <td class="text-center align-middle"><%= order.status_name %></td>
+              <td class="text-center align-middle"><%= link_to "表示する", order_path(order.id) %></td>
+            </tr>
           <% end %>
-        </td>
-        <td><%= order.total_payment %></td>
-        <td><%= order.status_name %></td>
-        <td><%= link_to "表示する", order_path(order.id) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
