@@ -5,6 +5,14 @@ class Order < ApplicationRecord
   attribute :postage, :integer, default: 800
   attribute :order_status, :integer, default: 0
 
+  validates :name, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
+  validates :total_payment, presence: true
+  validates :customer_id, presence: true
+  validates :order_status, presence: true
+  validates :payment_option, presence: true
+
 
   def total_price_calc
     customer = Customer.find(self.customer_id)

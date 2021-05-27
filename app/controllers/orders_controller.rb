@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :exist_cart_items?, only: [:new, :confirm, :create, :complete]
+  before_action :authenticate_customer!
+  before_action :exist_cart_items?, only: [:new, :confirm, :create]
 
 
   def new
+    @order = Order.new
     @customer = Customer.find(current_customer.id)
     @cart_items = @customer.cart_items.all
   end
@@ -29,16 +31,19 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new(order_params)
-    order.save
-    customer = Customer.find(current_customer.id)
-    carts = customer.cart_items.all
-    carts.each do |cart|
-      order_item = OrderItem.new(order_id: order.id, item_id: cart.item_id, price: cart.item.tax_calc, quantity: cart.quantity)
-      order_item.save
-      cart.destroy
+    @order = Order.new(order_params)
+    @customer = Customer.find(current_customer.id)
+    @cart_items = @customer.cart_items.all
+    if @order.save
+      @cart_items.each do |cart|
+        order_item = OrderItem.new(order_id: @order.id, item_id: cart.item_id, price: cart.item.tax_calc, quantity: cart.quantity)
+        order_item.save
+        cart.destroy
+      end
+      redirect_to orders_complete_path
+    else
+      render :new
     end
-    redirect_to orders_complete_path
   end
 
   def complete
@@ -65,6 +70,7 @@ class OrdersController < ApplicationController
     customer = Customer.find(current_customer.id)
     cart_items = customer.cart_items.all
     if cart_items.empty?
+      flash[:notice] = "カート内に商品がありません"
       redirect_to customer_path(current_customer.id)
     end
   end
