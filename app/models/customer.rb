@@ -10,6 +10,14 @@ class Customer < ApplicationRecord
 
   attribute :is_deleted, :boolean, default: false
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :first_name_kana, presence: true
+  validates :last_name_kana, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
+  validates :phone_number, presence: true
+
 
   def status_name
     name = {true => "退会", false => "有効"}

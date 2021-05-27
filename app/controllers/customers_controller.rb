@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_customer!
+
   #Viewあり
   def show
     #ログインしている会員情報を検索
@@ -11,7 +13,7 @@ class CustomersController < ApplicationController
   def edit
     @customer = Customer.find(params[:id])
   end
-  
+
   #Viewなし
   def out
     @customer = Customer.find(params[:id])
@@ -21,7 +23,7 @@ class CustomersController < ApplicationController
     reset_session
     redirect_to root_path
   end
-  
+
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
@@ -30,9 +32,9 @@ class CustomersController < ApplicationController
     else
       render 'edit'
     end
-  
+
   end
-  
+
   private
 
   def customer_params
