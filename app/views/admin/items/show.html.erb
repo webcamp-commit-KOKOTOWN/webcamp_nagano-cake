@@ -15,7 +15,11 @@
 					<p>商品説明　　　　<%= @item.description %></p><br>
 	      </div>
 	      <div class="field">
+	      	<% if @item.genre != nil %>
 					<p>ジャンル　　　　<%= @item.genre.name %></p><br>
+			<% else %>
+              		<p>ジャンル &emsp;  &emsp;  &emsp; なし</p>
+            <% end %>
 	      </div>
 	      <div class="field">
 					<p>

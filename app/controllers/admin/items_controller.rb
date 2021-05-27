@@ -44,7 +44,7 @@ def item_params
 end
 
 def set_genres
-    @genres = Genre.where(is_valid: true)
+    @genres = Genre.all
 end
 
 end
