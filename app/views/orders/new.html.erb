@@ -1,43 +1,57 @@
-<h1>注文情報入力画面</h1>
-<% if @order.errors.any? %>
-  <%= "#{@order.errors.count}件のエラーが発生しました" %>
-  <ul>
-    <%= @order.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-<%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
-  <div>
-    <h2>支払い方法</h2>
-    <%= f.radio_button :payment_option, :true, checked: true %>
-    <%= f.label :payment_option, "クレジットカード", {value: :true} %><br>
-    <%= f.radio_button :payment_option, :false %>
-    <%= f.label :payment_option, "銀行振込", {value: :false} %>
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1>注文情報入力</h1>
+      <% if @order.errors.any? %>
+        <%= "#{@order.errors.count}件のエラーが発生しました" %>
+        <ul>
+          <%= @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= form_with url: orders_confirm_path, method: :get, local:true do |f| %>
+        <h2>支払い方法</h2>
+        <div class="form-check">
+          <%= f.radio_button :payment_option, :true, {checked: true, class: "form-check-input"} %>
+          <%= f.label :payment_option, "クレジットカード", {value: :true, class: "form-check-label"} %>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :payment_option, :false, {class: "form-check-input"} %>
+          <%= f.label :payment_option, "銀行振込", {value: :false, class: "form-check-label"} %>
+        </div>
+        <h2>お届け先</h2>
+        <div class="form-check">
+          <%= f.radio_button :address_select, :current, {checked: true, class: "form-check-input"} %>
+          <%= f.label :address_select, "ご自身の住所", {value: :current, class: "form-check-label"} %>
+        </div>
+        <div class="ml-4">
+          <%= "〒#{@customer.postal_code} #{@customer.address}" %><br>
+          <%= "#{@customer.last_name}#{@customer.first_name}" %>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :address_select, :registered, {class: "form-check-input"} %>
+          <%= f.label :address_select, "登録住所から選択", {value: :registered, class:"form-check-label"} %>
+        </div>
+        <div class="ml-4">
+          <%= f.collection_select :address_registered, @customer.addresses.all, :id, :address, {prompt: false}, {class: "form-control"} %>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :address_select, :other, {class: "form-check-input"} %>
+          <%= f.label :address_select, "新しいお届け先", {value: :other, class: "form-check-label"} %>
+        </div>
+        <div class="form-group ml-4">
+          <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
+          <%= f.text_field :postal_code, {value: @order.postal_code, class: "form-control"} %>
+          <%= f.label :address, "住所" %>
+          <%= f.text_field :address, {value: @order.address, class: "form-control"} %>
+          <%= f.label :name, "宛名" %>
+          <%= f.text_field :name, {value: @order.name, class: "form-control"} %>
+        </div>
+        <div class="text-center my-2">
+          <%= f.submit "確認画面に進む", class: "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <h2>お届け先</h2>
-    <div>
-      <%= f.radio_button :address_select, :current, checked: true %>
-      <%= f.label :address_select, "ご自身の住所", {value: :current} %>
-      〒<%= @customer.address %>
-      <%= "#{@customer.last_name}#{@customer.first_name}" %>
-    </div>
-    <div>
-      <%= f.radio_button :address_select, :registered %>
-      <%= f.label :address_select, "登録住所から選択", {value: :registered} %>
-      <%= f.collection_select :address_registered, @customer.addresses.all, :id, :address %>
-    </div>
-    <div>
-      <%= f.radio_button :address_select, :other %>
-      <%= f.label :address_select, "新しいお届け先", {value: :other} %>
-      <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
-      <%= f.text_field :postal_code, {value: @order.postal_code} %><br>
-      <%= f.label :address, "住所" %>
-      <%= f.text_field :address, {value: @order.address} %><br>
-      <%= f.label :name, "宛名" %>
-      <%= f.text_field :name, {value: @order.name} %>
-    </div>
-  </div>
-  <%= f.submit "確認画面に進む" %>
-<% end %>
+</div>
