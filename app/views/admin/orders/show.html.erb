@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1>注文履歴詳細</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10">
+      <table class="table">
+        <tr>
+          <th class="align-middle">購入者</th>
+          <td><%= @order.customer.last_name + @order.customer.first_name %></td>
+        </tr>
+        <tr>
+          <th class="align-middle">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="align-middle">配送先</th>
+          <td>
+            <%= "〒#{@order.postal_code} #{@order.address}" %><br>
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="align-middle">支払い方法</th>
+          <td><%= @order.payment_option_name %></td>
+        </tr>
+        <tr>
+          <th class="align-middle">注文ステータス</th>
+          <td>
+            <%= form_with url: admin_order_path, method: :patch, local:true, class: "form-inline" do |f| %>
+              <%= f.select :order_status, {"入金待ち": 0, "入金確認": 1, "制作中": 2, "発送準備": 3, "発送済み": 4}, {selected: @order.order_status}, {class:"form-control mr-2"} %>
+              <%= f.submit "更新", {class: "btn btn-success"} %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center">商品名</th>
+            <th class="text-center">単価(税込)</th>
+            <th class="text-center">数量</th>
+            <th class="text-center">小計</th>
+            <th class="text-center">制作ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |order_item| %>
+            <tr>
+              <td class="text-center"><%= order_item.item.name %></td>
+              <td class="text-center"><%= order_item.price %></td>
+              <td class="text-center"><%= order_item.quantity %></td>
+              <td class="text-center"><%= order_item.price * order_item.quantity %></td>
+              <td>
+                <%= form_with url: admin_order_order_item_path(@order.id, order_item.id), method: :patch, local:true, class: "form-inline" do |f| %>
+                  <%= f.select :production_status, {"着手不可": 0, "制作待ち": 1, "制作中": 2, "制作完了": 3}, {selected: order_item.production_status}, {class:"form-control mr-2"} %>
+                  <%= f.submit "更新", {class: "btn btn-success"} %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-3">
+      <table class="table table-borderless">
+        <tr>
+          <th>商品合計</th>
+          <td><%= @order.total_payment - @order.postage %></td>
+        </tr>
+        <tr>
+          <th>送料</th>
+          <td><%= @order.postage %></td>
+        </tr>
+        <tr>
+          <th>請求金額合計</th>
+          <td><%= @order.total_payment %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

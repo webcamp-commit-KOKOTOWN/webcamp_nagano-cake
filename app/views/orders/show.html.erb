@@ -1,0 +1,72 @@
+<div class="container">
+    <h1>注文履歴詳細</h1>
+  <div class="row">
+    <div class="col-7">
+      <h2>注文情報</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active align-middle">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="table-active align-middle">配送先</th>
+          <td>
+            <%= "〒#{@order.postal_code}" %><br>
+            <%= @order.address %><br>
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active align-middle">支払い方法</th>
+          <td><%= @order.payment_option_name %></td>
+        </tr>
+        <tr>
+          <th class="table-active align-middle">ステータス</th>
+          <td><%= @order.status_name %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-3">
+      <h2>請求情報</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active align-middle">商品合計</th>
+          <td class="text-right"><%= @order.total_payment - @order.postage %></td>
+        </tr>
+        <tr>
+          <th class="table-active align-middle">配送料</th>
+          <td class="text-right"><%= @order.postage %></td>
+        </tr>
+        <tr>
+          <th class="table-active align-middle">ご請求額</th>
+          <td class="text-right"><%= @order.total_payment %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10">
+      <h2>注文内容</h2>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center">商品</th>
+            <th class="text-center">単価（税込）</th>
+            <th class="text-center">個数</th>
+            <th class="text-center">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |order_item| %>
+            <tr>
+              <td class="text-center"><%= order_item.item.name %></td>
+              <td class="text-center"><%= order_item.price %></td>
+              <td class="text-center"><%= order_item.quantity %></td>
+              <td class="text-center"><%= order_item.price * order_item.quantity %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

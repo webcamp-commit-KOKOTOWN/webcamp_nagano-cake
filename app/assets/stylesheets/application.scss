@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+
+.item-container {
+	float: left;
+	margin: 40px 15px 20px 15px;
+}

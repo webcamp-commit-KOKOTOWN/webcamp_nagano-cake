@@ -5,11 +5,105 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://kit.fontawesome.com/ea8667ef6a.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <% if customer_signed_in? %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container">
+         <%=link_to "NaganoCake",root_path,class:"navbar-brand"%>
+         <span class="navbar-text text-light">
+           <%= "ようこそ、#{current_customer.last_name}さん！" %>
+         </span>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+           <ul class="navbar-nav ml-auto">
+            <li>
+              <%= link_to "マイページ",customer_path(current_customer.id),class:"nav-link text-light fas fa-user"%>
+            </li>
+            <li>
+              <%= link_to "商品一覧",items_path,class:"nav-link text-light fas fa-birthday-cake"%>
+            </li>
+            <li>
+              <%= link_to "カート",cart_items_path,class:"nav-link text-light fas fa-shopping-cart"%>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete,class:"nav-link text-light fas fa-sign-out-alt" %>
+            </li>
+           </ul>
+         </div>
+       </div>
+      </nav>
+    </header>
+  <% elsif admin_signed_in? %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container">
+         <%=link_to "NaganoCake",admin_root_path,class:"navbar-brand"%>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+           <ul class="navbar-nav ml-auto">
+            <li>
+              <%=link_to "商品一覧",admin_items_path,class:"nav-link text-light fas fa-birthday-cake"%>
+            </li>
+            <li>
+              <%=link_to "会員一覧",admin_customers_path,class:"nav-link text-light fas fa-users"%>
+            </li>
+            <li>
+              <%= link_to "注文履歴一覧",admin_orders_path,class:"nav-link text-light fas fa-history"%>
+            </li>
+            <li>
+              <%= link_to "ジャンル一覧", admin_genres_path,class:"nav-link text-light fas fa-tags" %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"nav-link text-light fas fa-sign-out-alt" %>
+            </li>
+           </ul>
+         </div>
+       </div>
+      </nav>
+    </header>
+  <% else %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <%=link_to "NaganoCake",root_path,class:"navbar-brand"%>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li>
+                <%=link_to "About", homes_about_path,class:"nav-link text-light fas fa-link"%>
+              </li>
+              <li>
+                <%=link_to "商品一覧",items_path,class:"nav-link text-light fas fa-birthday-cake"%>
+              </li>
+              <li>
+                <%= link_to "新規登録", new_customer_registration_path,class:"nav-link text-light fas fa-user-plus"%>
+              </li>
+              <li>
+                <%= link_to "ログイン", new_customer_session_path,class:"nav-link text-light fas fa-sign-out-alt" %>
+              </li>
+            </ul>
+         </div>
+        </div>
+      </nav>
+    </header>
+  <% end %>
   <body>
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
